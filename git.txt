@@ -1,4 +1,8 @@
-** In your directory, update and pull changes from github first:
+
+This file contains some useful syntax and command lines I usually use to pull and push changes to/from github on my local computer.
+
+*********
+** Update local repository: in your directory, update and pull changes from github first:
 
 git remote update
 git status -uno
@@ -9,32 +13,18 @@ or
 git pull origin master
 
 *********
-
-** If you made changes, then commit and push changes to github:
+** Commit and push changes to github:
 
 git add file.py
 git commit -m 'added …’ file.py 
 git push -u origin master (or main)
 
 *********
-
-** Create a new repository on local computer after creating a new repository on github in order to add files from a certain directory to the new repository on github:
-
-echo "# ml_tutorial" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/azastron/ml_tutorial.git
-git push -u origin main
-
-*********
-
 ** Clone a new repository:
 
 git clone https://github.com/azastron/repository_name.git
 
-* You don't have to do a "git init" before "git clone", because it is already done by "git clone".
+* Note: You don't have to do a "git init" before "git clone", because it is already done by "git clone".
 
 [git clone is basically a combination of:
 git init (create the local repository)
@@ -43,76 +33,86 @@ git fetch (fetch all branches from that URL to your local repository)
 git checkout (create all the files of the main branch in your working tree)]
 
 *********
+** Create a new repository on local computer after creating a new repository on github if you already have files in your local directory and want to add them to github:
 
+#echo "something" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/azastron/ml_tutorial.git
+git push -u origin main
+
+*********
 ** Rollback two commits:
 git reset --hard HEAD~2
 
 *********
-
 ** See your git username and other info:
 git config --list
 git - -version
 
 *********
+** Work on a repository with a group of developers:
 
-https://code.tutsplus.com/tutorials/how-to-collaborate-on-github--net-34267
+From https://code.tutsplus.com/tutorials/how-to-collaborate-on-github--net-34267
 
 1. Fork the repo on github.com
 
-2. Git clone https://github.com/azastron/Analyses_AMON.git
-   (For some reason, git clone git@github.com:azastron/Analyses_AMON.git did not work due to access permission)
+2. Git clone https://github.com/azastron/repository_name.git
+   
+3. Add the upstream remote: git remote add upstream https://github.com/azastron/repository_name.git
 
-3. Add the upstream remote: git remote add upstream https://github.com/azastron/Analyses_AMON.git
 This will now allow me to pull in changes from the source locally and merge them:
 Git fetch upstream
 Git merge upstream/master
 
 4. Check out a topic branch before you make your own changes:
-Git checkout -b az_ic_hawc
+Git checkout -b branch_name
 
 5. Now you can make changes and create a commit that tracks just those changes
 Git commit -am “adding …”
 
 6. Push this topic branch to your own fork of the project:
-Git push origin az_ic_hawc
+Git push origin branch_name
 
 7. Then hit pull request on GitHub forked repository page.
 
 8. To get update from the origin repository:
-Git pull origin
-Git pull upstream master
+   Git pull origin
+   Git pull upstream master
 
 * git remote -v 
-Shows origin and upstreams that has been fetched and pushed
+  Shows origin and upstreams that has been fetched and pushed
 
-* git remote add upstream https://github.com/hayalaso/Analyses_AMON/
-git remote set-url origin https://github.com/hayalaso/Analyses_AMON/
+* git remote add upstream https://github.com/someone_else/repository_name/
+* git remote set-url origin https://github.com/someone_else/repository_name/
 
 9. Also one can do these to get updates from upstream:
-Git fetch upstream
-Git checkout master
-Git merge upstream/master
+   Git fetch upstream
+   Git checkout master
+   Git merge upstream/master
 
 
 10. Git merge:
-Use git merge tool
+    Use git merge tool
 
 Or 
 
-git checkout --ours HAWC_IC/multi_correlation_analysis.ipynb
-git checkout --theirs HAWC_IC/multi_correlation_analysis.ipynb 
-git add HAWC_IC/multi_correlation_analysis.ipynb
+git checkout --ours repository_name/name.ipynb
+git checkout --theirs repository_name/name.ipynb 
+git add repository_name/name.ipynb
 git commit -m "using theirs"
 
 Then git pull origin
 
 To sync master and branch in my fork:
-* git checkout az_ic_hawc
-* git pull origin az_ic_hawc
+* git checkout branch_name
+* git pull origin branch_name
 * git pull origin master
 * git checkout master
 * git pull origin master
-* git merge --no-ff az_ic_hawc
+* git merge --no-ff branch_name
 
 To see all branches:
 * git branch -r
@@ -120,24 +120,5 @@ To see all branches:
 To checkout a new branch from upstream:
 * git checkout -b new branch upstream/newbranch
 
-*********
-
-on dev:
-git add AmonPy/amonpy/ops/network/amon_client_post_ssl.py
-git commit -m 'log error info added'
-git config user.email 'hgchavo05@gmail.com'
-git config user.name 'hayalaso'
-git commit -m 'log error info added'
-git push
-*********
-
-View an older commit:
-git log --oneline
-git checkout a1e8fb5
-
-Nothing you do in here will be saved in your repository.
-
-To continue developing:
-git checkout master
 
 
