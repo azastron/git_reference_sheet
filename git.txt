@@ -39,7 +39,7 @@ git checkout (create all the files of the main branch in your working tree)]
 git init
 git add README.md
 git commit -m "first commit"
-git branch -M main
+git branch -M main or master
 git remote add origin https://github.com/azastron/ml_tutorial.git
 git push -u origin main
 
